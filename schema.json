@@ -1,0 +1,531 @@
+{
+  "schemaVersion": "3",
+  "created": "2017-07-13T19:16:10.801Z",
+  "workflows": {},
+  "services": {
+    "shopify:seans-store-takeshape": {
+      "params": {
+        "type": "graphql",
+        "authHeader": "X-Shopify-Access-Token",
+        "endpoint": "https://seans-store-takeshape.myshopify.com/admin/api/2020-07/graphql.json",
+        "shop": "seans-store-takeshape"
+      },
+      "auth": "0ilz5lgnCs0DYq/xqjzEGUBI4tvSpOYYeno2eD9IRMg9HEej4knsr4CyxS8vhpKZOb3DUlozlZJfXab0hpBPQYHXMtx6vfKn4M73AtZa6WF/RqUT8epppeG1sTEAGK4vr7G/URIiFIwB9p+jdFe+Z7E="
+    }
+  },
+  "version": 2,
+  "queries": {
+    "getProduct": {
+      "resolver": "graphql:query",
+      "args": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "@tag": "id"
+          }
+        },
+        "required": [
+          "id"
+        ]
+      },
+      "source": "shopify:seans-store-takeshape:Product",
+      "type": "Product",
+      "query": "product"
+    },
+    "getPost": {
+      "type": "Post",
+      "resolver": "takeshape:get",
+      "source": "takeshape:self:Post"
+    },
+    "getTag": {
+      "type": "Tag",
+      "resolver": "takeshape:get",
+      "source": "takeshape:self:Tag"
+    },
+    "getTagList": {
+      "type": "PaginatedList<Tag>",
+      "resolver": "takeshape:list",
+      "source": "takeshape:self:Tag"
+    },
+    "getPostList": {
+      "type": "PaginatedList<Post>",
+      "resolver": "takeshape:list",
+      "source": "takeshape:self:Post"
+    },
+    "getProductList": {
+      "resolver": "graphql:query",
+      "args": {
+        "type": "object",
+        "properties": {
+          "after": {
+            "type": "string",
+            "description": "Returns the elements that come after the specified cursor."
+          },
+          "last": {
+            "type": "integer",
+            "description": "Returns up to the last `n` elements from the list."
+          },
+          "reverse": {
+            "type": "boolean",
+            "description": "Reverse the order of the underlying list."
+          },
+          "before": {
+            "type": "string",
+            "description": "Returns the elements that come before the specified cursor."
+          },
+          "first": {
+            "type": "integer",
+            "description": "Returns up to the first `n` elements from the list."
+          }
+        }
+      },
+      "source": "shopify:seans-store-takeshape:Product",
+      "type": "ProductConnection",
+      "query": "products"
+    }
+  },
+  "dataKey": "AQIDAHhcZWXOdlBglkxBhI23ElO/clC/kuw5ynjXDSqJgfTz8gFvrYhMK581OOYYSjJNwit9AAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMPLnOWQxVHD5AzgXdAgEQgDu0ANKQTBQ7dNFJEQcd2aOfZncgw7DjUasC+7Yp2ci0Y2+ZmbbtIa2kcHBt8eriFPR28uwgnvDzn8t6Qw==",
+  "defaultLocale": "en",
+  "locales": [
+    "en"
+  ],
+  "apiVersion": "2",
+  "mutations": {
+    "deletePost": {
+      "type": "boolean",
+      "resolver": "takeshape:delete",
+      "source": "takeshape:self:Post"
+    },
+    "updateTag": {
+      "type": "Tag",
+      "resolver": "takeshape:update",
+      "source": "takeshape:self:Tag"
+    },
+    "deleteTag": {
+      "type": "boolean",
+      "resolver": "takeshape:delete",
+      "source": "takeshape:self:Tag"
+    },
+    "updatePost": {
+      "type": "Post",
+      "resolver": "takeshape:update",
+      "source": "takeshape:self:Post"
+    },
+    "createTag": {
+      "type": "Tag",
+      "resolver": "takeshape:create",
+      "source": "takeshape:self:Tag"
+    },
+    "createPost": {
+      "type": "Post",
+      "resolver": "takeshape:create",
+      "source": "takeshape:self:Post"
+    },
+    "createProduct": {
+      "resolver": "graphql:mutation",
+      "args": {
+        "type": "object",
+        "properties": {
+          "input": {
+            "$ref": "#/shapes/ProductInput/schema"
+          }
+        },
+        "required": [
+          "input"
+        ]
+      },
+      "source": "shopify:seans-store-takeshape:Product",
+      "type": "ProductCreatePayload",
+      "query": "productCreate"
+    }
+  },
+  "shapes": {
+    "Post": {
+      "name": "Post",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "shopifyProduct": {
+            "$ref": "#/shapes/Product/schema",
+            "@resolver": {
+              "resolver": "graphql:query",
+              "args": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "@tag": "id",
+                    "@mapping": "parent.productId"
+                  }
+                },
+                "required": [
+                  "id"
+                ]
+              },
+              "source": "shopify:seans-store-takeshape:Product",
+              "type": "Product",
+              "query": "product"
+            }
+          },
+          "rating": {
+            "type": "integer",
+            "@mapping": "takeshape:local:Post.ratingId"
+          },
+          "productId": {
+            "type": "string",
+            "@tag": "id",
+            "@mapping": "takeshape:local:Post.productId"
+          },
+          "title": {
+            "type": "string",
+            "@l10n": true,
+            "@mapping": "takeshape:local:Post.titleId"
+          },
+          "body": {
+            "type": "string",
+            "@l10n": true,
+            "@mapping": "takeshape:local:Post.bodyId"
+          },
+          "tags": {
+            "@mapping": "takeshape:local:Post.tagsId",
+            "type": "array",
+            "items": {
+              "$ref": "#/shapes/TSRelationship/schema"
+            },
+            "@relationship": {
+              "type": "multiple",
+              "shapeIds": [
+                "tagContentTypeId"
+              ],
+              "relatedName": "firstTags"
+            }
+          }
+        },
+        "required": [
+          "title"
+        ]
+      },
+      "model": {
+        "type": "multiple"
+      },
+      "id": "postContentTypeId",
+      "title": "Post"
+    },
+    "SEO": {
+      "name": "SEO",
+      "title": "SEO",
+      "id": "seo",
+      "description": "SEO information.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string",
+            "@mapping": "shopify:seans-store-takeshape:SEO.description",
+            "description": "SEO Description."
+          },
+          "title": {
+            "type": "string",
+            "@mapping": "shopify:seans-store-takeshape:SEO.title",
+            "description": "SEO Title."
+          }
+        }
+      }
+    },
+    "Product": {
+      "name": "Product",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "images": {
+            "type": "array",
+            "items": {
+              "$ref": "#/shapes/Image/schema"
+            },
+            "@mapping": "shopify:seans-store-takeshape:Product.images"
+          },
+          "publishedAt": {
+            "type": "string",
+            "format": "date-time",
+            "@tag": "date",
+            "@mapping": "shopify:seans-store-takeshape:Product.publishedAt"
+          },
+          "templateSuffix": {
+            "type": "string",
+            "@mapping": "shopify:seans-store-takeshape:Product.templateSuffix"
+          },
+          "availablePublicationCount": {
+            "type": "integer",
+            "@mapping": "shopify:seans-store-takeshape:Product.availablePublicationCount"
+          },
+          "description": {
+            "type": "string",
+            "@mapping": "shopify:seans-store-takeshape:Product.description"
+          },
+          "handle": {
+            "type": "string",
+            "@mapping": "shopify:seans-store-takeshape:Product.handle"
+          },
+          "title": {
+            "type": "string",
+            "@tag": "title",
+            "@mapping": "shopify:seans-store-takeshape:Product.title"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "@mapping": "shopify:seans-store-takeshape:Product.tags"
+          },
+          "createdAt": {
+            "description": "The date and time ([ISO 8601 format](http://en.wikipedia.org/wiki/ISO_8601)) when the product was created.",
+            "type": "string",
+            "format": "date-time",
+            "@mapping": "shopify:seans-store-takeshape:Product.createdAt"
+          },
+          "featuredImage": {
+            "$ref": "#/shapes/Image/schema",
+            "@mapping": "shopify:seans-store-takeshape:Product.featuredImage"
+          },
+          "vendor": {
+            "type": "string",
+            "@mapping": "shopify:seans-store-takeshape:Product.vendor"
+          },
+          "descriptionHtml": {
+            "type": "string",
+            "@tag": "html",
+            "@mapping": "shopify:seans-store-takeshape:Product.descriptionHtml"
+          },
+          "id": {
+            "type": "string",
+            "@tag": "id",
+            "@mapping": "shopify:seans-store-takeshape:Product.id"
+          },
+          "seo": {
+            "$ref": "#/shapes/SEO/schema",
+            "@mapping": "shopify:seans-store-takeshape:Product.seo",
+            "description": "SEO information of the product."
+          },
+          "productType": {
+            "type": "string",
+            "@mapping": "shopify:seans-store-takeshape:Product.productType"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The date and time ([ISO 8601 format](http://en.wikipedia.org/wiki/ISO_8601)) when the product was last modified.",
+            "@mapping": "shopify:seans-store-takeshape:Product.updatedAt"
+          }
+        }
+      },
+      "id": "shopifyProduct",
+      "title": "Product"
+    },
+    "Image": {
+      "name": "Image",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "width": {
+            "type": "number",
+            "@mapping": "shopify:seans-store-takeshape:Image.width"
+          },
+          "id": {
+            "type": "number",
+            "@tag": "id",
+            "@mapping": "shopify:seans-store-takeshape:Image.id"
+          },
+          "altText": {
+            "type": "string",
+            "@mapping": "shopify:seans-store-takeshape:Image.altText"
+          },
+          "src": {
+            "type": "string",
+            "@tag": "imageUrl",
+            "@mapping": "shopify:seans-store-takeshape:Image.src"
+          }
+        }
+      },
+      "id": "shopifyImage",
+      "title": "Image"
+    },
+    "ProductInput": {
+      "name": "ProductInput",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "vendor": {
+            "type": "string",
+            "@mapping": "shopify:seans-store-takeshape:ProductInput.vendor"
+          },
+          "description": {
+            "type": "string",
+            "@mapping": "shopify:seans-store-takeshape:ProductInput.description"
+          },
+          "descriptionHtml": {
+            "type": "string",
+            "@tag": "html",
+            "@mapping": "shopify:seans-store-takeshape:ProductInput.descriptionHtml"
+          },
+          "handle": {
+            "type": "string",
+            "@mapping": "shopify:seans-store-takeshape:ProductInput.handle"
+          },
+          "seo": {
+            "$ref": "#/shapes/SEO/schema",
+            "@mapping": "shopify:seans-store-takeshape:ProductInput.seo"
+          },
+          "title": {
+            "type": "string",
+            "@tag": "title",
+            "@mapping": "shopify:seans-store-takeshape:ProductInput.title"
+          },
+          "productType": {
+            "type": "string",
+            "@mapping": "shopify:seans-store-takeshape:ProductInput.productType"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "@mapping": "shopify:seans-store-takeshape:ProductInput.tags"
+          }
+        },
+        "required": [
+          "title"
+        ]
+      },
+      "id": "productInput",
+      "title": "Product Input"
+    },
+    "ProductConnection": {
+      "name": "ProductConnection",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "edges": {
+            "type": "array",
+            "items": {
+              "$ref": "#/shapes/ProductEdge/schema"
+            },
+            "@mapping": "shopify:seans-store-takeshape:ProductConnection.edges"
+          },
+          "pageInfo": {
+            "$ref": "#/shapes/PageInfo/schema",
+            "@mapping": "shopify:seans-store-takeshape:ProductInput.pageInfo"
+          }
+        },
+        "required": []
+      },
+      "id": "productConnection",
+      "title": "Product Connection"
+    },
+    "PageInfo": {
+      "name": "PageInfo",
+      "title": "PageInfo",
+      "id": "pageInfo",
+      "description": "Information about pagination in a connection.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "hasNextPage": {
+            "type": "boolean",
+            "@mapping": "shopify:seans-store-takeshape:PageInfo.hasNextPage",
+            "description": "Indicates if there are more pages to fetch."
+          },
+          "hasPreviousPage": {
+            "type": "boolean",
+            "@mapping": "shopify:seans-store-takeshape:PageInfo.hasPreviousPage",
+            "description": "Indicates if there are any pages prior to the current page."
+          }
+        },
+        "required": [
+          "hasNextPage",
+          "hasPreviousPage"
+        ]
+      }
+    },
+    "ProductEdge": {
+      "name": "ProductEdge",
+      "title": "ProductEdge",
+      "id": "productEdge",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "cursor": {
+            "type": "string",
+            "@mapping": "shopify:seans-store-takeshape:ProductEdge.cursor",
+            "description": "A cursor for use in pagination."
+          },
+          "node": {
+            "$ref": "#/shapes/Product/schema",
+            "@mapping": "shopify:seans-store-takeshape:ProductEdge.node",
+            "description": "The item at the end of ProductEdge."
+          }
+        },
+        "required": [
+          "cursor",
+          "node"
+        ]
+      }
+    },
+    "ProductCreatePayload": {
+      "name": "ProductCreatePayload",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "product": {
+            "$ref": "#/shapes/Product/schema",
+            "@mapping": "shopify:seans-store-takeshape:ProductCreatePayload.product"
+          }
+        }
+      },
+      "id": "shopifyProductCreatePayload",
+      "title": "Product Create Payload"
+    },
+    "Tag": {
+      "name": "Tag",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "@mapping": "shopify:seans-store-takeshape:Tag.nameId"
+          }
+        },
+        "required": [
+          "name"
+        ]
+      },
+      "model": {
+        "type": "taxonomy"
+      },
+      "id": "tagContentTypeId",
+      "title": "Tag"
+    }
+  },
+  "projectId": "2dfe9bff-a0be-4309-ab53-acbe60bdb44b",
+  "updated": "2018-09-08T20:16:45.814Z",
+  "forms": {
+    "Post": {
+      "default": {
+        "order": [
+          "title",
+          "body",
+          "rating",
+          "tags"
+        ]
+      }
+    },
+    "Tag": {
+      "default": {
+        "order": [
+          "name"
+        ]
+      }
+    }
+  }
+}
