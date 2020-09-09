@@ -172,7 +172,17 @@
     },
     "createProduct": {
       "resolver": "graphql:mutation",
-      "args": "ProductInput",
+      "args": {
+        "type": "object",
+        "properties": {
+          "input": {
+            "$ref": "#/shapes/ProductInput/schema"
+          }
+        },
+        "required": [
+          "input"
+        ]
+      },
       "source": "shopify:seans-store-takeshape",
       "model": "Product",
       "type": "ProductCreatePayload",
