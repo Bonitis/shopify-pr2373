@@ -29,29 +29,42 @@
           "id"
         ]
       },
-      "source": "shopify:seans-store-takeshape:Product",
+      "source": "shopify:seans-store-takeshape",
+      "model": "Product",
       "type": "Product",
       "query": "product"
     },
     "getPost": {
       "type": "Post",
       "resolver": "takeshape:get",
-      "source": "takeshape:self:Post"
-    },
-    "getTag": {
-      "type": "Tag",
-      "resolver": "takeshape:get",
-      "source": "takeshape:self:Tag"
-    },
-    "getTagList": {
-      "type": "PaginatedList<Tag>",
-      "resolver": "takeshape:list",
-      "source": "takeshape:self:Tag"
+      "source": "takeshape:local",
+      "model": "Post",
+      "description": "Get a Post by ID",
+      "args": "QueryInput<Post>"
     },
     "getPostList": {
       "type": "PaginatedList<Post>",
       "resolver": "takeshape:list",
-      "source": "takeshape:self:Post"
+      "source": "takeshape:local",
+      "model": "Post",
+      "description": "Returns a list Post in natural order.",
+      "args": "PaginatedListInput<Post>"
+    },
+    "getTag": {
+      "type": "Tag",
+      "resolver": "takeshape:get",
+      "source": "takeshape:local",
+      "model": "Tag",
+      "description": "Get a Tag by ID",
+      "args": "QueryInput<Tag>"
+    },
+    "getTagList": {
+      "type": "PaginatedList<Tag>",
+      "resolver": "takeshape:list",
+      "source": "takeshape:local",
+      "model": "Tag",
+      "description": "Returns a list Tag in natural order.",
+      "args": "PaginatedListInput<Tag>"
     },
     "getProductList": {
       "resolver": "graphql:query",
@@ -80,7 +93,8 @@
           }
         }
       },
-      "source": "shopify:seans-store-takeshape:Product",
+      "description": "Get Shopify Product list",
+      "source": "shopify:seans-store-takeshape",
       "type": "ProductConnection",
       "query": "products"
     }
@@ -92,50 +106,75 @@
   ],
   "apiVersion": "2",
   "mutations": {
-    "deletePost": {
-      "type": "boolean",
-      "resolver": "takeshape:delete",
-      "source": "takeshape:self:Post"
-    },
-    "updateTag": {
-      "type": "Tag",
-      "resolver": "takeshape:update",
-      "source": "takeshape:self:Tag"
-    },
-    "deleteTag": {
-      "type": "boolean",
-      "resolver": "takeshape:delete",
-      "source": "takeshape:self:Tag"
-    },
     "updatePost": {
-      "type": "Post",
+      "type": "UpdateResult<Post>",
       "resolver": "takeshape:update",
-      "source": "takeshape:self:Post"
-    },
-    "createTag": {
-      "type": "Tag",
-      "resolver": "takeshape:create",
-      "source": "takeshape:self:Tag"
+      "source": "takeshape:local",
+      "model": "Post",
+      "description": "Update Post",
+      "args": "UpdateInput<Post>"
     },
     "createPost": {
-      "type": "Post",
+      "type": "CreateResult<Post>",
       "resolver": "takeshape:create",
-      "source": "takeshape:self:Post"
+      "source": "takeshape:local",
+      "model": "Post",
+      "description": "Create Post",
+      "args": "CreateInput<Post>"
+    },
+    "duplicatePost": {
+      "type": "DuplicateResult<Post>",
+      "resolver": "takeshape:duplicate",
+      "source": "takeshape:local",
+      "model": "Post",
+      "description": "Duplicate Post",
+      "args": "DuplicateInput<Post>"
+    },
+    "deletePost": {
+      "type": "DeleteResult<Post>",
+      "resolver": "takeshape:delete",
+      "source": "takeshape:local",
+      "model": "Post",
+      "description": "Delete Post",
+      "args": "DeleteInput<Post>"
+    },
+    "updateTag": {
+      "type": "UpdateResult<Tag>",
+      "resolver": "takeshape:update",
+      "source": "takeshape:local",
+      "model": "Tag",
+      "description": "Update Tag",
+      "args": "UpdateInput<Tag>"
+    },
+    "createTag": {
+      "type": "CreateResult<Tag>",
+      "resolver": "takeshape:create",
+      "source": "takeshape:local",
+      "model": "Tag",
+      "description": "Create Tag",
+      "args": "CreateInput<Tag>"
+    },
+    "duplicateTag": {
+      "type": "DuplicateResult<Tag>",
+      "resolver": "takeshape:duplicate",
+      "source": "takeshape:local",
+      "model": "Tag",
+      "description": "Duplicate Tag",
+      "args": "DuplicateInput<Tag>"
+    },
+    "deleteTag": {
+      "type": "DeleteResult<Tag>",
+      "resolver": "takeshape:delete",
+      "source": "takeshape:local",
+      "model": "Tag",
+      "description": "Delete Tag",
+      "args": "DeleteInput<Tag>"
     },
     "createProduct": {
       "resolver": "graphql:mutation",
-      "args": {
-        "type": "object",
-        "properties": {
-          "input": {
-            "$ref": "#/shapes/ProductInput/schema"
-          }
-        },
-        "required": [
-          "input"
-        ]
-      },
-      "source": "shopify:seans-store-takeshape:Product",
+      "args": "ProductInput",
+      "source": "shopify:seans-store-takeshape",
+      "model": "Product",
       "type": "ProductCreatePayload",
       "query": "productCreate"
     }
@@ -163,7 +202,8 @@
                   "id"
                 ]
               },
-              "source": "shopify:seans-store-takeshape:Product",
+              "source": "shopify:seans-store-takeshape",
+              "model": "Product",
               "type": "Product",
               "query": "product"
             }
