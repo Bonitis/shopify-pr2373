@@ -30,7 +30,6 @@
         ]
       },
       "source": "shopify:seans-store-takeshape",
-      "model": "Product",
       "type": "Product",
       "query": "product"
     },
@@ -40,7 +39,7 @@
       "source": "takeshape:local",
       "model": "Post",
       "description": "Get a Post by ID",
-      "args": "QueryInput<Post>"
+      "args": "TSGetArgs<Post>"
     },
     "getPostList": {
       "type": "PaginatedList<Post>",
@@ -48,7 +47,7 @@
       "source": "takeshape:local",
       "model": "Post",
       "description": "Returns a list Post in natural order.",
-      "args": "PaginatedListInput<Post>"
+      "args": "TSListArgs<Post>"
     },
     "getTag": {
       "type": "Tag",
@@ -56,7 +55,7 @@
       "source": "takeshape:local",
       "model": "Tag",
       "description": "Get a Tag by ID",
-      "args": "QueryInput<Tag>"
+      "args": "TSGetArgs<Tag>"
     },
     "getTagList": {
       "type": "PaginatedList<Tag>",
@@ -64,7 +63,7 @@
       "source": "takeshape:local",
       "model": "Tag",
       "description": "Returns a list Tag in natural order.",
-      "args": "PaginatedListInput<Tag>"
+      "args": "TSListArgs<Tag>"
     },
     "getProductList": {
       "resolver": "graphql:query",
@@ -112,7 +111,7 @@
       "source": "takeshape:local",
       "model": "Post",
       "description": "Update Post",
-      "args": "UpdateInput<Post>"
+      "args": "UpdateArgs<Post>"
     },
     "createPost": {
       "type": "CreateResult<Post>",
@@ -120,7 +119,7 @@
       "source": "takeshape:local",
       "model": "Post",
       "description": "Create Post",
-      "args": "CreateInput<Post>"
+      "args": "CreateArgs<Post>"
     },
     "duplicatePost": {
       "type": "DuplicateResult<Post>",
@@ -128,7 +127,7 @@
       "source": "takeshape:local",
       "model": "Post",
       "description": "Duplicate Post",
-      "args": "DuplicateInput<Post>"
+      "args": "DuplicateArgs<Post>"
     },
     "deletePost": {
       "type": "DeleteResult<Post>",
@@ -136,7 +135,7 @@
       "source": "takeshape:local",
       "model": "Post",
       "description": "Delete Post",
-      "args": "DeleteInput<Post>"
+      "args": "DeleteArgs<Post>"
     },
     "updateTag": {
       "type": "UpdateResult<Tag>",
@@ -144,7 +143,7 @@
       "source": "takeshape:local",
       "model": "Tag",
       "description": "Update Tag",
-      "args": "UpdateInput<Tag>"
+      "args": "UpdateArgs<Tag>"
     },
     "createTag": {
       "type": "CreateResult<Tag>",
@@ -152,7 +151,7 @@
       "source": "takeshape:local",
       "model": "Tag",
       "description": "Create Tag",
-      "args": "CreateInput<Tag>"
+      "args": "CreateArgs<Tag>"
     },
     "duplicateTag": {
       "type": "DuplicateResult<Tag>",
@@ -160,7 +159,7 @@
       "source": "takeshape:local",
       "model": "Tag",
       "description": "Duplicate Tag",
-      "args": "DuplicateInput<Tag>"
+      "args": "DuplicateArgs<Tag>"
     },
     "deleteTag": {
       "type": "DeleteResult<Tag>",
@@ -168,7 +167,7 @@
       "source": "takeshape:local",
       "model": "Tag",
       "description": "Delete Tag",
-      "args": "DeleteInput<Tag>"
+      "args": "DeleteArgs<Tag>"
     },
     "createProduct": {
       "resolver": "graphql:mutation",
